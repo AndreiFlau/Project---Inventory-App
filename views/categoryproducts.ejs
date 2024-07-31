@@ -1,0 +1,8 @@
+<h1><%= instruments[0].categoryName %></h1>
+<% instruments.forEach(instrument => { %>
+<div>
+  <h3><%= instrument.name %></h3>
+  <p><%= instrument.description %></p>
+  <p><%= instrument.price %></p>
+</div>
+<% }) %>
