@@ -11,6 +11,16 @@ async function getAllInstruments() {
   }));
 }
 
+async function addInstrument(name, description, price, category) {
+  // const { categoryId } = await pool.query("SELECT id FROM categories WHERE categories.name = ($1)", [category]);
+  await pool.query(
+    `
+    INSERT INTO instruments (name, description, price, category_id)
+    VALUES ($1,$2,$3,$4)`,
+    [name, description, price, category]
+  );
+}
+
 async function getCategories() {
   const { rows } = await pool.query("SELECT * FROM categories");
   return rows.map((category) => ({
@@ -45,6 +55,7 @@ async function getInstrumentsByCategories(categoryName) {
 
 module.exports = {
   getAllInstruments,
+  addInstrument,
   getCategories,
   getInstrumentsByCategories,
 };

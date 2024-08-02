@@ -2,9 +2,19 @@
 const asyncHandler = require("express-async-handler");
 const { getCategories, getInstrumentsByCategories } = require("../db/queries");
 
+exports.getCategories = asyncHandler(async (req, res, next) => {
+  try {
+    const categories = await getCategories();
+    req.categories = categories;
+    next();
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    res.status(500).send("An error occurred while fetching categories");
+  }
+});
+
 exports.categoriesGet = asyncHandler(async (req, res) => {
-  const categories = await getCategories();
-  res.render("categories", { categories: categories });
+  res.render("categories", { categories: req.categories });
 });
 
 exports.categorieProductsGet = asyncHandler(async (req, res) => {
