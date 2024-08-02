@@ -1,6 +1,6 @@
 //controller that fetches data about product from database
 const asyncHandler = require("express-async-handler");
-const { getAllInstruments, addInstrument } = require("../db/queries");
+const { getAllInstruments, addInstrument, deleteInstrument } = require("../db/queries");
 const { body, validationResult } = require("express-validator");
 
 const validateProduct = [
@@ -24,6 +24,10 @@ exports.allProductsGet = asyncHandler(async (req, res) => {
   res.render("allproducts", { instruments: req.products });
 });
 
+exports.addProductGet = asyncHandler(async (req, res) => {
+  res.render("./changeitems/additem", { categories: req.categories });
+});
+
 exports.addProductPost = [
   validateProduct,
   asyncHandler(async (req, res) => {
@@ -36,10 +40,37 @@ exports.addProductPost = [
     }
     const { itemname, description, price, category } = req.body;
     await addInstrument(itemname, description, price, category);
-    res.redirect("back");
+    res.redirect("/allproducts");
   }),
 ];
 
-exports.addProductGet = asyncHandler(async (req, res) => {
-  res.render("./changeitems/additem", { categories: req.categories });
+exports.deleteProductGet = asyncHandler(async (req, res) => {
+  const productId = req.params.id;
+  res.render("./changeitems/deleteitem", { instrumentid: productId });
 });
+
+const validatePass = body("pass")
+  .notEmpty()
+  .escape()
+  .custom((value, { req }) => {
+    if (value !== process.env.SECRETPASS) {
+      throw new Error("Incorrect Password");
+    }
+    return true;
+  });
+
+exports.deleteProductPost = [
+  validatePass,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    const productId = req.params.id;
+    if (!errors.isEmpty()) {
+      return res.status(400).render("./changeitems/deleteitem", {
+        errors: errors.array(),
+        instrumentid: productId,
+      });
+    }
+    await deleteInstrument(productId);
+    res.redirect("/allproducts");
+  }),
+];

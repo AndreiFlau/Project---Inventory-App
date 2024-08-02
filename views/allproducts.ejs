@@ -4,6 +4,8 @@
   <h3><%= instrument.name %></h3>
   <p><%= instrument.description %></p>
   <p><%= instrument.price %></p>
+  <button><a href="/allproducts/deleteitem/<%= instrument.id %> ">Delete Item</a></button>
 </div>
 <% }) %>
 <a href="/allproducts/createitem">Create a new product</a>
+<a href="/">Return to homepage</a>

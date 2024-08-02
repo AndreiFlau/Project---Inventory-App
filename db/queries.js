@@ -12,12 +12,20 @@ async function getAllInstruments() {
 }
 
 async function addInstrument(name, description, price, category) {
-  // const { categoryId } = await pool.query("SELECT id FROM categories WHERE categories.name = ($1)", [category]);
   await pool.query(
     `
     INSERT INTO instruments (name, description, price, category_id)
     VALUES ($1,$2,$3,$4)`,
     [name, description, price, category]
+  );
+}
+
+async function deleteInstrument(instrumentId) {
+  await pool.query(
+    `
+    DELETE FROM instruments
+    WHERE instruments.id = ($1)`,
+    [instrumentId]
   );
 }
 
@@ -55,6 +63,7 @@ async function getInstrumentsByCategories(categoryName) {
 
 module.exports = {
   getAllInstruments,
+  deleteInstrument,
   addInstrument,
   getCategories,
   getInstrumentsByCategories,
