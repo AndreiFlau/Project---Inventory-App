@@ -1,0 +1,60 @@
+@import '/node_modules/modern-normalize/modern-normalize.css';
+
+html {
+  font-family: 'Roboto', 'Courier New', Courier, monospace;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:hover {
+  color: blue;
+}
+
+.index-list {
+  display: flex;
+  gap: 10px;
+}
+
+.products {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products *:not(.buttons *) {
+  min-width: 20vw;
+}
+
+.products .buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.links {
+  display: flex;
+  gap: 10px;
+}

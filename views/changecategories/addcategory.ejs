@@ -1,7 +1,18 @@
-<%- include("../errors.ejs") %>
-<form action="/categories/createcategory" method="post">
-  <label for="categoryname">Category Name:</label>
-  <input type="text" id="categoryname" name="categoryname" required />
-  <button type="submit">Submit</button>
-</form>
-<a href="/categories">Return to categories</a>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Category</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <%- include("../errors.ejs") %>
+    <form action="/categories/createcategory" method="post">
+      <label for="categoryname">Category Name:</label>
+      <input type="text" id="categoryname" name="categoryname" required />
+      <button type="submit">Submit</button>
+    </form>
+    <a href="/categories">Return to categories</a>
+  </body>
+</html>

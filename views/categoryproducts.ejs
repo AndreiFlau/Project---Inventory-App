@@ -1,11 +1,22 @@
-<% if (instruments && instruments.length > 0) { %>
-<h1><%= instruments[0].categoryName %></h1>
-<% instruments.forEach(instrument => { %>
-<div>
-  <h3><%= instrument.name %></h3>
-  <p><%= instrument.description %></p>
-  <p><%= instrument.price %></p>
-</div>
-<% }); %> <% } else { %>
-<h1>No instruments found</h1>
-<% } %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Category Products</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <% if (instruments && instruments.length > 0) { %>
+    <h1><%= instruments[0].categoryName %></h1>
+    <% instruments.forEach(instrument => { %>
+    <div>
+      <h3><%= instrument.name %></h3>
+      <p><%= instrument.description %></p>
+      <p><%= instrument.price %></p>
+    </div>
+    <% }); %> <% } else { %>
+    <h1>No instruments found</h1>
+    <% } %>
+  </body>
+</html>
