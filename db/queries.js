@@ -11,6 +11,18 @@ async function getAllInstruments() {
   }));
 }
 
+async function getSingleInstrument(id) {
+  const result = await pool.query("SELECT * FROM instruments WHERE id = ($1)", [id]);
+  const instrument = result.rows[0];
+  return {
+    id: instrument.id,
+    name: instrument.name,
+    description: instrument.description,
+    price: instrument.price,
+    categoryId: instrument.category_id,
+  };
+}
+
 async function addInstrument(name, description, price, category) {
   await pool.query(
     `
@@ -29,12 +41,35 @@ async function deleteInstrument(instrumentId) {
   );
 }
 
+async function editInstrument(id, name, description, price, category) {
+  await pool.query(
+    `
+    UPDATE instruments
+    SET name = ($1),
+    description = ($2),
+    price = ($3),
+    category_id = ($4)
+    WHERE id = ($5)`,
+    [name, description, price, category, id]
+  );
+}
+
 async function getCategories() {
   const { rows } = await pool.query("SELECT * FROM categories");
   return rows.map((category) => ({
     id: category.id,
     name: category.name,
   }));
+}
+
+async function createCategory(name) {
+  await pool.query(
+    `
+    INSERT INTO categories (name)
+    VALUES ($1)
+    `,
+    [name]
+  );
 }
 
 async function getInstrumentsByCategories(categoryName) {
@@ -63,8 +98,11 @@ async function getInstrumentsByCategories(categoryName) {
 
 module.exports = {
   getAllInstruments,
+  getSingleInstrument,
   deleteInstrument,
   addInstrument,
+  editInstrument,
   getCategories,
   getInstrumentsByCategories,
+  createCategory,
 };

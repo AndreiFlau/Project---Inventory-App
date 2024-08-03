@@ -1,3 +1,4 @@
+<% if (instruments && instruments.length > 0) { %>
 <h1><%= instruments[0].categoryName %></h1>
 <% instruments.forEach(instrument => { %>
 <div>
@@ -5,4 +6,6 @@
   <p><%= instrument.description %></p>
   <p><%= instrument.price %></p>
 </div>
-<% }) %>
+<% }); %> <% } else { %>
+<h1>No instruments found</h1>
+<% } %>

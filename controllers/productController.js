@@ -1,6 +1,6 @@
 //controller that fetches data about product from database
 const asyncHandler = require("express-async-handler");
-const { getAllInstruments, addInstrument, deleteInstrument } = require("../db/queries");
+const { getAllInstruments, addInstrument, deleteInstrument, editInstrument, getSingleInstrument } = require("../db/queries");
 const { body, validationResult } = require("express-validator");
 
 const validateProduct = [
@@ -71,6 +71,31 @@ exports.deleteProductPost = [
       });
     }
     await deleteInstrument(productId);
+    res.redirect("/allproducts");
+  }),
+];
+
+exports.editProductGet = asyncHandler(async (req, res) => {
+  const productId = req.params.id;
+  const product = await getSingleInstrument(productId);
+  res.render("./changeitems/edititem", { instrument: product, categories: req.categories });
+});
+
+exports.editProductPost = [
+  validateProduct,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    const productId = req.params.id;
+    const product = await getSingleInstrument(productId);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("./changeitems/edititem", {
+        errors: errors.array(),
+        instrument: product,
+        categories: req.categories,
+      });
+    }
+    const { itemname, description, price, category } = req.body;
+    await editInstrument(productId, itemname, description, price, category);
     res.redirect("/allproducts");
   }),
 ];

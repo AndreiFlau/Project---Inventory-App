@@ -1,11 +1,14 @@
 <h1>All Products</h1>
-<% instruments.forEach(instrument => { %>
+<% if (instruments && instruments.length > 0) { %> <% instruments.forEach(instrument => { %>
 <div>
   <h3><%= instrument.name %></h3>
   <p><%= instrument.description %></p>
   <p><%= instrument.price %></p>
-  <button><a href="/allproducts/deleteitem/<%= instrument.id %> ">Delete Item</a></button>
+  <button><a href="/allproducts/edititem/<%= instrument.id %>">Edit Item</a></button>
+  <button><a href="/allproducts/deleteitem/<%= instrument.id %>">Delete Item</a></button>
 </div>
-<% }) %>
+<% }); %> <% } else { %>
+<p>No products found</p>
+<% } %>
 <a href="/allproducts/createitem">Create a new product</a>
 <a href="/">Return to homepage</a>
