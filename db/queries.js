@@ -32,7 +32,7 @@ async function addInstrument(name, description, price, category) {
   );
 }
 
-async function deleteInstrument(instrumentId) {
+async function deleteCategory(instrumentId) {
   await pool.query(
     `
     DELETE FROM instruments
@@ -60,6 +60,15 @@ async function getCategories() {
     id: category.id,
     name: category.name,
   }));
+}
+
+async function getSingleCategory(id) {
+  const result = await pool.query("SELECT * FROM categories WHERE id = ($1)", [id]);
+  const category = result.rows[0];
+  return {
+    id: category.id,
+    name: category.name,
+  };
 }
 
 async function createCategory(name) {
@@ -96,13 +105,35 @@ async function getInstrumentsByCategories(categoryName) {
   }));
 }
 
+async function deleteCategory(categoryId) {
+  await pool.query(
+    `
+    DELETE FROM categories
+    WHERE categories.id = ($1)`,
+    [categoryId]
+  );
+}
+
+async function editCategory(id, name) {
+  await pool.query(
+    `
+    UPDATE categories
+    SET name = ($1)
+    WHERE id = ($2)`,
+    [name, id]
+  );
+}
+
 module.exports = {
   getAllInstruments,
   getSingleInstrument,
-  deleteInstrument,
+  deleteInstrument: deleteCategory,
   addInstrument,
   editInstrument,
   getCategories,
+  getSingleCategory,
   getInstrumentsByCategories,
   createCategory,
+  deleteCategory,
+  editCategory,
 };

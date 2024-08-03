@@ -1,0 +1,7 @@
+<%- include("../errors.ejs") %>
+<form action="/categories/editcategory/<%= category.id %>" method="post">
+  <label for="categoryname">Category Name:</label>
+  <input type="text" id="categoryname" name="categoryname" value="<%= category.name %>" required />
+  <button type="submit">Submit</button>
+</form>
+<a href="/categories">Return to categories</a>

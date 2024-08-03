@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS instruments (
   description VARCHAR ( 255 ),
   price INTEGER,
   category_id INTEGER,
-  FOREIGN KEY (category_id) REFERENCES categories(id)
+  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
 );
 
 INSERT INTO categories (name) 
