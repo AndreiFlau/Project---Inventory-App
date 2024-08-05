@@ -19,8 +19,12 @@
         <p><%= instrument.description %></p>
         <p><%= instrument.price %></p>
         <div class="buttons">
-          <button><a href="/allproducts/edititem/<%= instrument.id %>">Edit Item</a></button>
-          <button><a href="/allproducts/deleteitem/<%= instrument.id %>">Delete Item</a></button>
+          <a href="/allproducts/edititem/<%= instrument.id %>">
+            <button>Edit Item</button>
+          </a>
+          <a href="/allproducts/deleteitem/<%= instrument.id %>">
+            <button>Delete Item</button>
+          </a>
         </div>
       </div>
       <% }); %> <% } else { %>

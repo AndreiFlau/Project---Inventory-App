@@ -8,6 +8,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
+}
+
+body:has(form) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 98vh;
 }
 
 ul {
@@ -25,7 +35,29 @@ a:visited {
 }
 
 a:hover {
-  color: blue;
+  color: grey;
+}
+
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 20vw;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  transition: all ease 0.3s;
+  background-color: rgb(205, 248, 247);
+  padding: 15px;
+}
+
+button:hover {
+  opacity: 70%;
 }
 
 .index-list {
@@ -33,25 +65,46 @@ a:hover {
   gap: 10px;
 }
 
-.products {
+.products,
+.categories {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 5vh;
+  margin-left: 5vh;
+  margin-right: 5vh;
+  margin-bottom: 5vh;
 }
 
-.products div {
+.products div:not(.buttons),
+.categories div:not(.buttons) {
   display: flex;
+  flex: 1 1 30vw;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  max-height: 60vh;
+  box-shadow: #00000047 0 2px 11px;
+  padding: 35px;
+  background-color: #ffffff;
 }
 
 .products *:not(.buttons *) {
   min-width: 20vw;
 }
 
+.categories div {
+  gap: 20px;
+}
+
 .products .buttons {
   display: flex;
   flex-direction: row;
+}
+
+.buttons {
+  gap: 5px;
 }
 
 .links {

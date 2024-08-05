@@ -8,14 +8,24 @@
   </head>
   <body>
     <h1>Categories</h1>
-    <% categories.forEach(category => { %>
-    <div>
-      <a href="/categories/<%= category.name %>"><%= category.name %></a>
-      <button><a href="/categories/editcategory/<%= category.id %>">Edit Category</a></button>
-      <button><a href="/categories/deletecategory/<%= category.id %>">Delete Category</a></button>
+    <div class="links">
+      <a href="/categories/createcategory">Create Category</a>
+      <a href="/">Return to homepage</a>
     </div>
-    <% }) %>
-    <a href="/categories/createcategory">Create Category</a>
-    <a href="/">Return to homepage</a>
+    <div class="categories">
+      <% categories.forEach(category => { %>
+      <div>
+        <a href="/categories/<%= category.name %>"><h2><%= category.name %></h2></a>
+        <div class="buttons">
+          <a href="/categories/editcategory/<%= category.id %>">
+            <button>Edit Category</button>
+          </a>
+          <a href="/categories/deletecategory/<%= category.id %>">
+            <button>Delete Category</button>
+          </a>
+        </div>
+      </div>
+      <% }) %>
+    </div>
   </body>
 </html>
