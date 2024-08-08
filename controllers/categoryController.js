@@ -31,7 +31,7 @@ exports.categorieProductsGet = asyncHandler(async (req, res) => {
   res.render("categoryproducts", { instruments: instruments });
 });
 
-const validateCategory = [body("categoryname").isLength({ min: 1, max: 100 }).escape()];
+const validateCategory = [body("categoryname").isLength({ min: 1, max: 100 })];
 
 exports.createCategoryGet = asyncHandler(async (req, res) => {
   res.render("./changecategories/addcategory");
@@ -59,7 +59,6 @@ exports.deleteCategoryGet = asyncHandler(async (req, res) => {
 
 const validatePass = body("pass")
   .notEmpty()
-  .escape()
   .custom((value, { req }) => {
     if (value !== process.env.SECRETPASS) {
       throw new Error("Incorrect Password");

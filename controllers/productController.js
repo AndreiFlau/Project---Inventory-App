@@ -4,8 +4,8 @@ const { getAllInstruments, addInstrument, deleteInstrument, editInstrument, getS
 const { body, validationResult } = require("express-validator");
 
 const validateProduct = [
-  body("itemname").trim().escape().isLength({ min: 1, max: 100 }).withMessage("Name is required"),
-  body("description").trim().escape().isLength({ min: 1, max: 500 }).withMessage("A description is required"),
+  body("itemname").trim().isLength({ min: 1, max: 100 }).withMessage("Name is required"),
+  body("description").trim().isLength({ min: 1, max: 500 }).withMessage("A description is required"),
   body("price").isNumeric().withMessage("Price must be a number"),
 ];
 
@@ -51,7 +51,6 @@ exports.deleteProductGet = asyncHandler(async (req, res) => {
 
 const validatePass = body("pass")
   .notEmpty()
-  .escape()
   .custom((value, { req }) => {
     if (value !== process.env.SECRETPASS) {
       throw new Error("Incorrect Password");
